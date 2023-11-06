@@ -2,10 +2,8 @@ package com.jx.service.impl;
 
 import com.jx.common.IsRightAccount;
 import com.jx.common.UserRegisterRequest;
-import com.jx.exception.BusinessException;
 import com.jx.mapper.UserMapper;
 import com.jx.service.UserService;
-import com.sun.xml.internal.bind.v2.TODO;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
@@ -21,13 +19,13 @@ public class UserServiceImpl implements UserService {
     public String register(UserRegisterRequest userRegisterRequest) {
 
         //1.两次密码是否正确
-        if(!userRegisterRequest.getCheckPassword().
+        if (!userRegisterRequest.getCheckPassword().
                 equals(userRegisterRequest.getUserPassword())) {
-            return "两次密码不正确" ;
+            return "两次密码不正确";
         }
 
         //2.用户名校验
-        if(IsRightAccount.existSpecialCharacters(userRegisterRequest)){
+        if (IsRightAccount.existSpecialCharacters(userRegisterRequest)) {
             return "用户名含有特殊字符，不符合规范";
         }
 
