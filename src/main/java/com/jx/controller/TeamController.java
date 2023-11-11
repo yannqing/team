@@ -1,7 +1,7 @@
 package com.jx.controller;
 
 import com.jx.common.*;
-import com.jx.dao.vo.ListMyCreateTeamsVO;
+import com.jx.dao.vo.ListMyCreateTeamsModel;
 import com.jx.dao.vo.TeamUserVO;
 import com.jx.service.TeamService;
 import org.springframework.validation.BindingResult;
@@ -54,16 +54,16 @@ public class TeamController {
      * <hr/>
      * 对我创建的队伍进行数据查看
      *
-     * @param listMyCreateTeamsVO 自定义实体类数据
+     * @param listMyCreateTeamsModel 自定义实体类数据
      * @param bindingResult       错误信息
      * @return 返回结构化实体
      * @author 筱锋xiao_lfeng
      */
     @GetMapping("/api/team/list/my/create")
-    public BaseResponse listMyCreateTeams(@RequestBody ListMyCreateTeamsVO listMyCreateTeamsVO,
+    public BaseResponse listMyCreateTeams(@ModelAttribute ListMyCreateTeamsModel listMyCreateTeamsModel,
                                           HttpSession userInfo, BindingResult bindingResult) {
         if (!bindingResult.hasErrors()) {
-            List<TeamUserVO> listMyCreateTeams = teamService.listMyCreateTeams(listMyCreateTeamsVO, userInfo);
+            List<TeamUserVO> listMyCreateTeams = teamService.listMyCreateTeams(listMyCreateTeamsModel, userInfo);
             return ResultUtils.success(listMyCreateTeams);
         } else {
             // Forbidden

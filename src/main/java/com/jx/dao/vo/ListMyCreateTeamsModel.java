@@ -15,7 +15,7 @@ import java.util.List;
  */
 @Data
 @Valid
-public class ListMyCreateTeamsVO {
+public class ListMyCreateTeamsModel {
     @Nullable
     @Pattern(regexp = "^[0-9A-Z-_]+$")
     private String description;

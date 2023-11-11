@@ -4,7 +4,7 @@ import com.jx.common.TeamQuitRequest;
 import com.jx.dao.TeamDO;
 import com.jx.dao.UserDO;
 import com.jx.dao.UserTeamDO;
-import com.jx.dao.vo.ListMyCreateTeamsVO;
+import com.jx.dao.vo.ListMyCreateTeamsModel;
 import com.jx.dao.vo.TeamUserVO;
 import com.jx.dao.vo.UserVO;
 import com.jx.mapper.TeamMapper;
@@ -43,7 +43,7 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
-    public List<TeamUserVO> listMyCreateTeams(ListMyCreateTeamsVO listMyCreateTeamsVO, HttpSession userInfo) {
+    public List<TeamUserVO> listMyCreateTeams(ListMyCreateTeamsModel listMyCreateTeamsModel, HttpSession userInfo) {
         // 根据用户信息进行用户查询
         Long userId = (Long) userInfo.getAttribute("userId");
         UserDO userDO = userMapper.selectUserForId(userId);
