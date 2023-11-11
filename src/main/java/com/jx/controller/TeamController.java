@@ -1,14 +1,11 @@
 package com.jx.controller;
 
-import com.jx.common.BaseResponse;
-import com.jx.common.ResultUtils;
-import com.jx.common.TeamQuitRequest;
-import com.jx.common.TeamUserVO;
+import com.jx.common.*;
+import com.jx.dao.vo.ListMyCreateTeamsVO;
+import com.jx.dao.vo.TeamUserVO;
 import com.jx.service.TeamService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -25,10 +22,11 @@ public class TeamController {
 
     /**
      * 团队及用户列表查询
+     *
      * @return
      */
     @GetMapping("/api/team/list")
-    public BaseResponse<List<TeamUserVO>> listTeam(){
+    public BaseResponse<List<TeamUserVO>> listTeam() {
 
         List<TeamUserVO> teamUserList = teamService.list();
 
@@ -37,16 +35,39 @@ public class TeamController {
 
     /**
      * 退出团队
+     *
      * @param teamQuitRequest
      * @return
      */
     @PostMapping("api/team/quit")
     public BaseResponse quitTeam(@RequestBody TeamQuitRequest teamQuitRequest,
-                                 HttpSession session){
+                                 HttpSession session) {
 
-        Integer userId = (Integer)session.getAttribute("userId");
+        Integer userId = (Integer) session.getAttribute("userId");
 
-        teamService.quitTeam(userId,teamQuitRequest);
+        teamService.quitTeam(userId, teamQuitRequest);
         return ResultUtils.success("ok");
+    }
+
+    /**
+     * <h2>查看我创建的队伍</h2>
+     * <hr/>
+     * 对我创建的队伍进行数据查看
+     *
+     * @param listMyCreateTeamsVO 自定义实体类数据
+     * @param bindingResult       错误信息
+     * @return 返回结构化实体
+     * @author 筱锋xiao_lfeng
+     */
+    @GetMapping("/api/team/list/my/create")
+    public BaseResponse listMyCreateTeams(@RequestBody ListMyCreateTeamsVO listMyCreateTeamsVO,
+                                          HttpSession userInfo, BindingResult bindingResult) {
+        if (!bindingResult.hasErrors()) {
+            List<TeamUserVO> listMyCreateTeams = teamService.listMyCreateTeams(listMyCreateTeamsVO, userInfo);
+            return ResultUtils.success(listMyCreateTeams);
+        } else {
+            // Forbidden
+            return ResultUtils.error(ErrorCode.PARAMS_ERROR);
+        }
     }
 }
