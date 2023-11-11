@@ -1,14 +1,14 @@
-package com.jx.common;
+package com.jx.dao.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 
 import java.util.List;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Accessors(chain = true)
 public class TeamUserVO {
 
     private String createTime;
@@ -19,8 +19,8 @@ public class TeamUserVO {
     private Integer id;
     private Integer maxNum;
     private String name;
-    private String status;
+    private Integer status;
     private String updateTime;
     private Integer userId;
-    private List<UserVO> userVO;
+    private UserVO userVO;
 }
