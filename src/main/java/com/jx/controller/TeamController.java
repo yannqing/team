@@ -1,7 +1,14 @@
 package com.jx.controller;
 
-import com.jx.common.*;
+import cn.hutool.db.Page;
+import cn.hutool.db.PageResult;
+import com.jx.common.BaseResponse;
+import com.jx.common.ErrorCode;
+import com.jx.common.ResultUtils;
+import com.jx.common.TeamQuitRequest;
 import com.jx.dao.vo.ListMyCreateTeamsModel;
+import com.jx.dao.vo.ListTeamByPageModel;
+import com.jx.dao.vo.Team;
 import com.jx.dao.vo.TeamUserVO;
 import com.jx.service.TeamService;
 import org.springframework.validation.BindingResult;
@@ -55,7 +62,7 @@ public class TeamController {
      * 对我创建的队伍进行数据查看
      *
      * @param listMyCreateTeamsModel 自定义实体类数据
-     * @param bindingResult       错误信息
+     * @param bindingResult          错误信息
      * @return 返回结构化实体
      * @author 筱锋xiao_lfeng
      */
@@ -65,6 +72,18 @@ public class TeamController {
         if (!bindingResult.hasErrors()) {
             List<TeamUserVO> listMyCreateTeams = teamService.listMyCreateTeams(listMyCreateTeamsModel, userInfo);
             return ResultUtils.success(listMyCreateTeams);
+        } else {
+            // Forbidden
+            return ResultUtils.error(ErrorCode.PARAMS_ERROR);
+        }
+    }
+
+    @GetMapping("/api/team/list/page")
+    public BaseResponse listTeamsByPage(@ModelAttribute ListTeamByPageModel listTeamByPageModel,
+                                        HttpSession userInfo, BindingResult bindingResult) {
+        if (!bindingResult.hasErrors()) {
+            // TODO: WHAT THIS?
+            Page<Team> listTeamsByPage = teamService.listTeamsByPage(listTeamByPageModel, userInfo);
         } else {
             // Forbidden
             return ResultUtils.error(ErrorCode.PARAMS_ERROR);

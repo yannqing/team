@@ -1,10 +1,12 @@
 package com.jx.service.impl;
 
+import cn.hutool.db.Page;
 import com.jx.common.TeamQuitRequest;
 import com.jx.dao.TeamDO;
 import com.jx.dao.UserDO;
 import com.jx.dao.UserTeamDO;
 import com.jx.dao.vo.ListMyCreateTeamsModel;
+import com.jx.dao.vo.ListTeamByPageModel;
 import com.jx.dao.vo.TeamUserVO;
 import com.jx.dao.vo.UserVO;
 import com.jx.mapper.TeamMapper;
@@ -87,6 +89,12 @@ public class TeamServiceImpl implements TeamService {
             teamUserVOList.add(teamUserVO);
         });
         return teamUserVOList;
+    }
+
+    @Override
+    public Page listTeamsByPage(ListTeamByPageModel listTeamByPageModel, HttpSession userInfo) {
+        // TODO: 2023.11.11 Use ListTeamByPageModel
+        return null;
     }
 
 

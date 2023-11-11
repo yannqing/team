@@ -718,35 +718,35 @@ TeamUser的包装，传递给前端的信息。
 
 **响应参数**:
 
-| 参数名称                                | 参数说明 | 类型             | schema         |
-|-------------------------------------|------|----------------|----------------| 
-| code                                |      | integer(int32) | integer(int32) |
-| data                                |      | Page«Team»     | Page«Team»     |
-| &emsp;&emsp;countId                 |      | string         |                |
-| &emsp;&emsp;current                 |      | integer        |                |
-| &emsp;&emsp;maxLimit                |      | integer        |                |
-| &emsp;&emsp;optimizeCountSql        |      | boolean        |                |
-| &emsp;&emsp;orders                  |      | array          | OrderItem      |
-| &emsp;&emsp;&emsp;&emsp;asc         |      | boolean        |                |
-| &emsp;&emsp;&emsp;&emsp;column      |      | string         |                |
-| &emsp;&emsp;pages                   |      | integer        |                |
-| &emsp;&emsp;records                 |      | array          | Team           |
-| &emsp;&emsp;&emsp;&emsp;createTime  |      | string         |                |
-| &emsp;&emsp;&emsp;&emsp;description |      | string         |                |
-| &emsp;&emsp;&emsp;&emsp;expireTime  |      | string         |                |
-| &emsp;&emsp;&emsp;&emsp;id          |      | integer        |                |
-| &emsp;&emsp;&emsp;&emsp;isDelete    |      | integer        |                |
-| &emsp;&emsp;&emsp;&emsp;maxNum      |      | integer        |                |
-| &emsp;&emsp;&emsp;&emsp;name        |      | string         |                |
-| &emsp;&emsp;&emsp;&emsp;password    |      | string         |                |
-| &emsp;&emsp;&emsp;&emsp;status      |      | integer        |                |
-| &emsp;&emsp;&emsp;&emsp;updateTime  |      | string         |                |
-| &emsp;&emsp;&emsp;&emsp;userId      |      | integer        |                |
-| &emsp;&emsp;searchCount             |      | boolean        |                |
-| &emsp;&emsp;size                    |      | integer        |                |
-| &emsp;&emsp;total                   |      | integer        |                |
-| description                         |      | string         |                |
-| message                             |      | string         |                |
+| 参数名称                            | 参数说明 | 类型                                       | schema         |
+| ----------------------------------- | -------- | ------------------------------------------ | -------------- |
+| code                                |          | integer(int32)                             | integer(int32) |
+| data                                |          | **Page«Team»**<font color='red'>???</font> | Page«Team»     |
+| &emsp;&emsp;countId                 |          | string                                     |                |
+| &emsp;&emsp;current                 |          | integer                                    |                |
+| &emsp;&emsp;maxLimit                |          | integer                                    |                |
+| &emsp;&emsp;optimizeCountSql        |          | boolean                                    |                |
+| &emsp;&emsp;orders                  |          | array                                      | OrderItem      |
+| &emsp;&emsp;&emsp;&emsp;asc         |          | boolean                                    |                |
+| &emsp;&emsp;&emsp;&emsp;column      |          | string                                     |                |
+| &emsp;&emsp;pages                   |          | integer                                    |                |
+| &emsp;&emsp;records                 |          | array                                      | Team           |
+| &emsp;&emsp;&emsp;&emsp;createTime  |          | string                                     |                |
+| &emsp;&emsp;&emsp;&emsp;description |          | string                                     |                |
+| &emsp;&emsp;&emsp;&emsp;expireTime  |          | string                                     |                |
+| &emsp;&emsp;&emsp;&emsp;id          |          | integer                                    |                |
+| &emsp;&emsp;&emsp;&emsp;isDelete    |          | integer                                    |                |
+| &emsp;&emsp;&emsp;&emsp;maxNum      |          | integer                                    |                |
+| &emsp;&emsp;&emsp;&emsp;name        |          | string                                     |                |
+| &emsp;&emsp;&emsp;&emsp;password    |          | string                                     |                |
+| &emsp;&emsp;&emsp;&emsp;status      |          | integer                                    |                |
+| &emsp;&emsp;&emsp;&emsp;updateTime  |          | string                                     |                |
+| &emsp;&emsp;&emsp;&emsp;userId      |          | integer                                    |                |
+| &emsp;&emsp;searchCount             |          | boolean                                    |                |
+| &emsp;&emsp;size                    |          | integer                                    |                |
+| &emsp;&emsp;total                   |          | integer                                    |                |
+| description                         |          | string                                     |                |
+| message                             |          | string                                     |                |
 
 **响应示例**:
 
