@@ -11,6 +11,7 @@ import org.apache.ibatis.annotations.Mapper;
  * @since 2023-11-14 15:46:55
  */
 @Mapper
+
 public interface TeamMapper extends BaseMapper<Team> {
 
 }

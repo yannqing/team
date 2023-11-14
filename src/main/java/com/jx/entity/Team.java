@@ -11,7 +11,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
  * 队伍(Team)表实体类
  *
  * @author zrx
- * @since 2023-11-14 15:27:45
+ * @since 2023-11-14 15:54:02
  */
 @SuppressWarnings("serial")
 @Data
@@ -19,7 +19,8 @@ import com.baomidou.mybatisplus.annotation.TableName;
 @NoArgsConstructor
 @TableName("team")
 public class Team  {
-    //id@TableId
+    //id
+    @TableId
     private Long id;
     //队伍名称
     private String name;

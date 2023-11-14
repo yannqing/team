@@ -11,7 +11,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
  * (User)表实体类
  *
  * @author zrx
- * @since 2023-11-14 15:18:00
+ * @since 2023-11-14 15:54:03
  */
 @SuppressWarnings("serial")
 @Data
@@ -19,7 +19,8 @@ import com.baomidou.mybatisplus.annotation.TableName;
 @NoArgsConstructor
 @TableName("user")
 public class User  {
-    //主键ID@TableId
+    //主键ID
+    @TableId
     private Long id;
     //姓名
     private String username;
