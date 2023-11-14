@@ -30,4 +30,5 @@ public class GlobalException extends Throwable {
         log.error("runtimeException", e);
         return ResultUtils.error(ErrorCode.SYSTEM_ERROR, e.getMessage(), "");
     }
+
 }
