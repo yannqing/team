@@ -1,12 +1,11 @@
 package com.jx.dao.vo;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
-import java.math.BigInteger;
-
+/**
+ * @author lfeng
+ */
 @Data
 @Accessors(chain = true)
 public class UserVO {
@@ -21,8 +20,8 @@ public class UserVO {
     private String tags;
     private String updateTime;
     private String userAccount;
+    private String userPassword;
     private Integer userRole;
     private Integer userStatus;
     private String userName;
-
 }
