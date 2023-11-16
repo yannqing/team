@@ -1,14 +1,10 @@
 package com.jx.service.impl;
 
-import cn.hutool.db.Page;
 import com.jx.common.TeamQuitRequest;
 import com.jx.dao.TeamDO;
 import com.jx.dao.UserDO;
 import com.jx.dao.UserTeamDO;
-import com.jx.dao.vo.ListMyCreateTeamsModel;
-import com.jx.dao.vo.ListTeamByPageModel;
-import com.jx.dao.vo.TeamUserVO;
-import com.jx.dao.vo.UserVO;
+import com.jx.dao.vo.*;
 import com.jx.mapper.TeamMapper;
 import com.jx.mapper.UserMapper;
 import com.jx.mapper.UserTeamMapper;
@@ -20,6 +16,9 @@ import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author XiaoLFeng
+ */
 @Service
 @RequiredArgsConstructor
 public class TeamServiceImpl implements TeamService {
@@ -46,6 +45,12 @@ public class TeamServiceImpl implements TeamService {
 
     @Override
     public List<TeamUserVO> listMyCreateTeams(ListMyCreateTeamsModel listMyCreateTeamsModel, HttpSession userInfo) {
+        // 数据检查
+        if (listMyCreateTeamsModel.getStatus() != null) {
+            if (listMyCreateTeamsModel.getStatus() >= 0 && listMyCreateTeamsModel.getStatus() <= 2) {
+                listMyCreateTeamsModel.setStatus(0);
+            }
+        }
         // 根据用户信息进行用户查询
         Long userId = (Long) userInfo.getAttribute("userId");
         UserDO userDO = userMapper.selectUserForId(userId);
@@ -65,7 +70,7 @@ public class TeamServiceImpl implements TeamService {
                 .setUserStatus(userDO.getUserStats())
                 .setUserName(userDO.getUsername());
         // 获取用户信息
-        List<TeamDO> teamDO = teamMapper.getUserCreateTeams(userId);
+        List<TeamDO> teamDO = teamMapper.getUserCreateTeams(listMyCreateTeamsModel, userId);
         List<TeamUserVO> teamUserVOList = new ArrayList<>();
         teamDO.forEach(team -> {
             // 获取本人是否加入
@@ -92,9 +97,29 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
-    public Page listTeamsByPage(ListTeamByPageModel listTeamByPageModel, HttpSession userInfo) {
-        // TODO: 2023.11.11 Use ListTeamByPageModel
-        return null;
+    public Page<Team> listTeamsByPage(ListTeamByPageModel listTeamByPageModel, HttpSession userInfo) {
+        // 处理输入数据
+        if (listTeamByPageModel.getStatus() != null) {
+            if (listTeamByPageModel.getStatus() >= 0 && listTeamByPageModel.getStatus() <= 2) {
+                listTeamByPageModel.setStatus(0);
+            }
+        }
+        // 根据用户信息进行用户查询
+        List<TeamDO> teamDOList = teamMapper.listTeamByPage(listTeamByPageModel);
+        Page<Team> listTeamByPage = new Page<>();
+        teamDOList.forEach(teamDO -> listTeamByPage.getRecords().add((Team) teamDO));
+        listTeamByPage
+                .setCountId(null)
+                .setCurrent(null)
+                .setMaxLimit(null)
+                .setOptimizeCountSql(false)
+                .setOrders(null)
+                .setPages(null)
+                .setSearchCount(null)
+                .setSize(listTeamByPage.getRecords().size())
+                .setTotal(null);
+        // 数据反馈
+        return listTeamByPage;
     }
 
 

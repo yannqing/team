@@ -1,5 +1,7 @@
 package com.jx.mapper;
 
+import com.jx.dao.vo.ListMyCreateTeamsModel;
+import com.jx.dao.vo.ListTeamByPageModel;
 import com.jx.dao.vo.TeamUserVO;
 import com.jx.dao.vo.UserVO;
 import com.jx.dao.TeamDO;
@@ -8,13 +10,16 @@ import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
+/**
+ * @author 176yunxuan
+ */
 @Mapper
 public interface TeamMapper {
 
-    @Select("select * from team")
+    @Select("select * from project01.team")
     List<TeamUserVO> list();
 
-    @Select("select * from user where id IN (select userId from user_team where teamId = 1)")
+    @Select("select * from project01.user where id IN (select userId from project01.user_team where teamId = 1)")
     List<UserVO> listUser();
 
     void quitTeam(Integer userId,Integer teamId);
@@ -27,6 +32,32 @@ public interface TeamMapper {
      * @param userId 用户ID
      * @return 返回TeamUserVO的集合类
      */
-    @Select("SELECT * FROM project01.team WHERE userId = #{userId}")
-    List<TeamDO> getUserCreateTeams(Long userId);
+    @Select("SET @start = IF(#{pageSize} IS NULL, 0, #{pageSize} * (#{pageNum} - 1));" +
+            "SET @limit = IF(#{pageSize} IS NULL, 10, #{pageSize});" +
+            "SELECT * FROM project01.team " +
+                "WHERE " +
+                    "userId = #{userId} " +
+                "AND (name = #{name} OR name LIKE '%'#{searchText}'%' OR #{name} IS NULL) " +
+                "AND (description = #{description} OR description LIKE '%'#{searchText}'%' OR #{description} IS NULL) " +
+                "AND (maxNum = #{maxNum} OR #{maxNum} IS NULL) " +
+                "AND (status = #{status} OR #{status} IS NULL) " +
+                "AND (userId = #{userId} OR #{userId} IS NULL)" +
+                "AND (id IN (#{idList}) OR #{idList} IS NULL) " +
+            "ORDER BY id DESC LIMIT @start, @limit;")
+    List<TeamDO> getUserCreateTeams(ListMyCreateTeamsModel listMyCreateTeamsModel, Long userId);
+
+    @Select("SET @start = IF(#{pageSize} IS NULL, 0, #{pageSize} * (#{pageNum} - 1));" +
+            "SET @limit = IF(#{pageSize} IS NULL, 10, #{pageSize});" +
+            "SELECT * FROM project01.team " +
+                "WHERE " +
+                    "(description = #{description} OR team.description LIKE '%'#{searchText}'%' OR #{description} IS NULL) " +
+                "AND (name = #{name} OR name LIKE '%'#{searchText}'%' OR #{name} IS NULL)" +
+                "AND (maxNum = #{maxNum} OR #{maxNum} IS NULL) " +
+                "AND (status = #{status} OR #{status} IS NULL) " +
+                "AND (userId = #{userId} OR #{userId} IS NULL)" +
+                "AND (id IN (#{idList}) OR #{idList} IS NULL) " +
+            "ORDER BY id DESC LIMIT @start, @limit;")
+    List<TeamDO> listTeamByPage(ListTeamByPageModel listTeamByPageModel);
+
 }
+
