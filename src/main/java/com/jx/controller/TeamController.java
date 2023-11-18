@@ -1,12 +1,13 @@
 package com.jx.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jx.common.BaseResponse;
 import com.jx.common.ErrorCode;
 import com.jx.common.ResultUtils;
 import com.jx.common.TeamQuitRequest;
 import com.jx.dao.vo.ListMyCreateTeamsModel;
 import com.jx.dao.vo.ListTeamByPageModel;
-import com.jx.dao.vo.Page;
+import com.jx.dao.vo.Team;
 import com.jx.dao.vo.TeamUserVO;
 import com.jx.service.TeamService;
 import org.springframework.validation.BindingResult;
@@ -107,7 +108,7 @@ public class TeamController {
         Integer userId = (Integer) userInfo.getAttribute("userId");
         if (userId != null) {
             if (!bindingResult.hasErrors()) {
-                Page listTeamsByPage = teamService.listTeamsByPage(listTeamByPageModel, userInfo);
+                Page<Team> listTeamsByPage = teamService.listTeamsByPage(listTeamByPageModel, userInfo);
                 return ResultUtils.success(listTeamsByPage);
             } else {
                 // Forbidden

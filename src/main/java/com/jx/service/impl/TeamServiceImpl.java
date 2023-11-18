@@ -1,5 +1,6 @@
 package com.jx.service.impl;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jx.common.TeamQuitRequest;
 import com.jx.dao.TeamDO;
 import com.jx.dao.UserDO;
@@ -108,16 +109,6 @@ public class TeamServiceImpl implements TeamService {
         List<TeamDO> teamDOList = teamMapper.listTeamByPage(listTeamByPageModel);
         Page<Team> listTeamByPage = new Page<>();
         teamDOList.forEach(teamDO -> listTeamByPage.getRecords().add((Team) teamDO));
-        listTeamByPage
-                .setCountId(null)
-                .setCurrent(null)
-                .setMaxLimit(null)
-                .setOptimizeCountSql(false)
-                .setOrders(null)
-                .setPages(null)
-                .setSearchCount(null)
-                .setSize(listTeamByPage.getRecords().size())
-                .setTotal(null);
         // 数据反馈
         return listTeamByPage;
     }
