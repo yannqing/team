@@ -6,6 +6,7 @@ import com.jx.dao.vo.TeamUserVO;
 import com.jx.dao.vo.UserVO;
 import com.jx.dao.TeamDO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -44,7 +45,7 @@ public interface TeamMapper {
                 "AND (userId = #{userId} OR #{userId} IS NULL)" +
                 "AND (id IN (#{idList}) OR #{idList} IS NULL) " +
             "ORDER BY id DESC LIMIT @start, @limit;")
-    List<TeamDO> getUserCreateTeams(ListMyCreateTeamsModel listMyCreateTeamsModel, Long userId);
+    List<TeamDO> getUserCreateTeams(ListMyCreateTeamsModel listMyCreateTeamsModel, Long userId, @Param("idList") List<Integer> idList);
 
     @Select("SET @start = IF(#{pageSize} IS NULL, 0, #{pageSize} * (#{pageNum} - 1));" +
             "SET @limit = IF(#{pageSize} IS NULL, 10, #{pageSize});" +
@@ -57,7 +58,7 @@ public interface TeamMapper {
                 "AND (userId = #{userId} OR #{userId} IS NULL)" +
                 "AND (id IN (#{idList}) OR #{idList} IS NULL) " +
             "ORDER BY id DESC LIMIT @start, @limit;")
-    List<TeamDO> listTeamByPage(ListTeamByPageModel listTeamByPageModel);
+    List<TeamDO> listTeamByPage(ListTeamByPageModel listTeamByPageModel, @Param("idList") List<Integer> idList);
 
 }
 

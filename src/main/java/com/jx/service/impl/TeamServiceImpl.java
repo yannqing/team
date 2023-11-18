@@ -71,7 +71,7 @@ public class TeamServiceImpl implements TeamService {
                 .setUserStatus(userDO.getUserStats())
                 .setUserName(userDO.getUsername());
         // 获取用户信息
-        List<TeamDO> teamDO = teamMapper.getUserCreateTeams(listMyCreateTeamsModel, userId);
+        List<TeamDO> teamDO = teamMapper.getUserCreateTeams(listMyCreateTeamsModel, userId, listMyCreateTeamsModel.getIdList());
         List<TeamUserVO> teamUserVOList = new ArrayList<>();
         teamDO.forEach(team -> {
             // 获取本人是否加入
@@ -106,7 +106,7 @@ public class TeamServiceImpl implements TeamService {
             }
         }
         // 根据用户信息进行用户查询
-        List<TeamDO> teamDOList = teamMapper.listTeamByPage(listTeamByPageModel);
+        List<TeamDO> teamDOList = teamMapper.listTeamByPage(listTeamByPageModel, listTeamByPageModel.getIdList());
         Page<Team> listTeamByPage = new Page<>();
         teamDOList.forEach(teamDO -> listTeamByPage.getRecords().add((Team) teamDO));
         // 数据反馈
