@@ -9,3 +9,8 @@ spring:
         max-idle: 16
         max-active: 32
         min-idle: 8
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/jxTeamUser
+    username: root
+    password: 123456
