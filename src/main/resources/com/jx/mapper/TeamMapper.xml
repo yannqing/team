@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jx.mapper.TeamMapper">
+    <update id="quitTeam">
+        update user_team
+        <set>
+            isDelete = 1,
+        </set>
+        where teamId = #{teamId} and userId = #{userId}
+    </update>
+
+    <select id="list" parameterType="com.jx.common.TeamUserVO">
+        select *
+        from team
+        <where>
+            <if test="id != -1">
+                 id = #{id}
+            </if>
+            <if test="description != null and description != '' and description != 'null' ">
+                and description like concat ('%',#{description},'%')
+            </if>
+
+            <if test="userId != -1">
+                and userId = #{userId}
+            </if>
+            <if test="status != -1">
+                and status = #{status}
+            </if>
+            <if test="name != null and name !='' and name !='null'">
+                and name like concat ('%',#{name},'%')
+            </if>
+            <if test="maxNum != -1">
+                and maxNum = #{maxNum}
+            </if>
+
+        </where>
+    </select>
+</mapper>
